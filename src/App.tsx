@@ -51,6 +51,10 @@ export default function App({ mode, onToggleMode }: Props) {
               />
             ))}
           </Stack>
+
+          <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'center' }}>
+            v1.1.0 · party HP scale
+          </Typography>
         </Stack>
       </Container>
     </>
