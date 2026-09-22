@@ -13,12 +13,12 @@ import type { Boss } from './types'
 const hardWill = (bossesData as Boss[]).find((b) => b.id === 'hard-will')!
 
 describe('requiredDpm', () => {
-  it('Hard Will 4% in 12 minutes => 51.0B DPM', () => {
+  it('Hard Will 4% in 12 minutes => 51B DPM', () => {
     const bossHp = 15.3e12
     const dpm = requiredDpm(bossHp, 4, 12)
     expect(dpm).toBeCloseTo(0.051e12, -4)
-    expect(formatDpm(dpm, 'B')).toBe('51.0B')
-    expect(formatDpm(dpm, 'T')).toBe('0.0510T')
+    expect(formatDpm(dpm, 'B')).toBe('51B')
+    expect(formatDpm(dpm, 'T')).toBe('0.051T')
   })
 
   it('uses time override via effectiveMinutes', () => {
