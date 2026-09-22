@@ -13,12 +13,12 @@ import type { Boss } from './types'
 const hardWill = (bossesData as Boss[]).find((b) => b.id === 'hard-will')!
 
 describe('requiredDpm', () => {
-  it('Hard Will 4% in 12 minutes => 54.4B DPM', () => {
-    const bossHp = 16.32e12
+  it('Hard Will 4% in 12 minutes => 51.0B DPM', () => {
+    const bossHp = 15.3e12
     const dpm = requiredDpm(bossHp, 4, 12)
-    expect(dpm).toBeCloseTo(0.0544e12, -4)
-    expect(formatDpm(dpm, 'B')).toBe('54.4B')
-    expect(formatDpm(dpm, 'T')).toBe('0.0544T')
+    expect(dpm).toBeCloseTo(0.051e12, -4)
+    expect(formatDpm(dpm, 'B')).toBe('51.0B')
+    expect(formatDpm(dpm, 'T')).toBe('0.0510T')
   })
 
   it('uses time override via effectiveMinutes', () => {
@@ -81,12 +81,12 @@ describe('formatHp', () => {
 
 describe('resolveBossHp', () => {
   it('Hard Will scales with party size', () => {
-    expect(resolveBossHp(hardWill, 1)).toBeCloseTo(6.85e12)
-    expect(resolveBossHp(hardWill, 2)).toBeCloseTo(6.85e12)
-    expect(resolveBossHp(hardWill, 3)).toBeCloseTo(9.63e12)
-    expect(resolveBossHp(hardWill, 4)).toBeCloseTo(12.24e12)
-    expect(resolveBossHp(hardWill, 5)).toBeCloseTo(15.01e12)
-    expect(resolveBossHp(hardWill, 6)).toBeCloseTo(16.32e12)
+    expect(resolveBossHp(hardWill, 1)).toBeCloseTo(6.43e12)
+    expect(resolveBossHp(hardWill, 2)).toBeCloseTo(6.43e12)
+    expect(resolveBossHp(hardWill, 3)).toBeCloseTo(9.03e12)
+    expect(resolveBossHp(hardWill, 4)).toBeCloseTo(11.48e12)
+    expect(resolveBossHp(hardWill, 5)).toBeCloseTo(14.08e12)
+    expect(resolveBossHp(hardWill, 6)).toBeCloseTo(15.3e12)
   })
 
   it('falls back to totalHp when boss has no hpByPlayers', () => {
@@ -98,8 +98,8 @@ describe('resolveBossHp', () => {
   it('1-player Hard Will full share uses scaled HP for DPM', () => {
     const hp = resolveBossHp(hardWill, 1)
     const dpm = requiredDpm(hp, 100, 15)
-    expect(dpm).toBeCloseTo(6.85e12 / 15)
-    expect(formatDpm(dpm, 'B')).toBe('456.7B')
-    expect(formatDpm(dpm, 'T')).toBe('0.4567T')
+    expect(dpm).toBeCloseTo(6.43e12 / 15)
+    expect(formatDpm(dpm, 'B')).toBe('428.7B')
+    expect(formatDpm(dpm, 'T')).toBe('0.4287T')
   })
 })
