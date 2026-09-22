@@ -27,6 +27,9 @@
     "theme": "ธีม",
     "light": "สว่าง",
     "dark": "มืด",
-    "system": "ตามระบบ"
+    "system": "ตามระบบ",
+    "dpmUnit": "หน่วย DPM",
+    "dpmUnitB": "แสดงเป็น B",
+    "dpmUnitT": "แสดงเป็น T"
   }
 }

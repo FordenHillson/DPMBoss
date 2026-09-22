@@ -12,7 +12,7 @@ import {
   Typography,
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { formatDamage } from '../domain/formatHp'
+import { formatDpm, type DamageUnit } from '../domain/formatHp'
 import { effectiveMinutes, requiredDpm } from '../domain/requiredDpm'
 import type { Player } from '../domain/types'
 
@@ -20,6 +20,7 @@ type Props = {
   player: Player
   bossHp: number
   clearTime: number
+  dpmUnit: DamageUnit
   onShareChange: (share: number) => void
   onToggleLock: () => void
   onTimeOverride: (minutes: number | null) => void
@@ -29,6 +30,7 @@ export function PlayerRow({
   player,
   bossHp,
   clearTime,
+  dpmUnit,
   onShareChange,
   onToggleLock,
   onTimeOverride,
@@ -117,7 +119,7 @@ export function PlayerRow({
               {t('player.requiredDpm')}
             </Typography>
             <Typography variant="h5" sx={{ fontWeight: 700 }}>
-              {formatDamage(dpm)}
+              {formatDpm(dpm, dpmUnit)}
             </Typography>
           </Box>
         </Stack>

@@ -27,6 +27,9 @@
     "theme": "Theme",
     "light": "Light",
     "dark": "Dark",
-    "system": "System"
+    "system": "System",
+    "dpmUnit": "DPM unit",
+    "dpmUnitB": "Show as B",
+    "dpmUnitT": "Show as T"
   }
 }

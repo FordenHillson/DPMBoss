@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import bossesData from '../data/bosses.json'
-import { formatDamage, parseDamageInput } from './formatHp'
+import { formatDamage, formatDpm, parseDamageInput } from './formatHp'
 import { resolveBossHp } from './resolveBossHp'
 import { effectiveMinutes, requiredDpm } from './requiredDpm'
 import {
@@ -17,7 +17,8 @@ describe('requiredDpm', () => {
     const bossHp = 16.32e12
     const dpm = requiredDpm(bossHp, 4, 12)
     expect(dpm).toBeCloseTo(0.0544e12, -4)
-    expect(formatDamage(dpm)).toBe('54.4B')
+    expect(formatDpm(dpm, 'B')).toBe('54.4B')
+    expect(formatDpm(dpm, 'T')).toBe('0.0544T')
   })
 
   it('uses time override via effectiveMinutes', () => {
@@ -62,6 +63,13 @@ describe('formatHp', () => {
     expect(parseDamageInput('16.32T')).toBeCloseTo(16.32e12)
     expect(parseDamageInput('605.4B')).toBeCloseTo(605.4e9)
   })
+
+  it('formatDpm forces B or T equivalently', () => {
+    const value = 1.264e12
+    expect(formatDpm(value, 'B')).toBe('1,264B')
+    expect(formatDpm(value, 'T')).toBe('1.264T')
+    expect(formatDamage(value)).toBe('1.264T')
+  })
 })
 
 describe('resolveBossHp', () => {
@@ -84,6 +92,7 @@ describe('resolveBossHp', () => {
     const hp = resolveBossHp(hardWill, 1)
     const dpm = requiredDpm(hp, 100, 15)
     expect(dpm).toBeCloseTo(6.85e12 / 15)
-    expect(formatDamage(dpm)).toBe('456.6667B')
+    expect(formatDpm(dpm, 'B')).toBe('456.7B')
+    expect(formatDpm(dpm, 'T')).toBe('0.4567T')
   })
 })

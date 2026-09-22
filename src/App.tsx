@@ -4,19 +4,32 @@ import { PartyControls } from './components/PartyControls'
 import { PlayerRow } from './components/PlayerRow'
 import { useCalculator } from './hooks/useCalculator'
 import { AppBarSettings } from './components/AppBarSettings'
+import type { DamageUnit } from './domain/formatHp'
 
 type Props = {
   mode: 'light' | 'dark'
   onToggleMode: () => void
+  dpmUnit: DamageUnit
+  onDpmUnitChange: (unit: DamageUnit) => void
 }
 
-export default function App({ mode, onToggleMode }: Props) {
+export default function App({
+  mode,
+  onToggleMode,
+  dpmUnit,
+  onDpmUnitChange,
+}: Props) {
   const { t } = useTranslation()
   const calc = useCalculator()
 
   return (
     <>
-      <AppBarSettings mode={mode} onToggleMode={onToggleMode} />
+      <AppBarSettings
+        mode={mode}
+        onToggleMode={onToggleMode}
+        dpmUnit={dpmUnit}
+        onDpmUnitChange={onDpmUnitChange}
+      />
       <Container maxWidth="sm" sx={{ py: 3 }}>
         <Stack spacing={3}>
           <Typography variant="body2" color="text.secondary">
@@ -45,6 +58,7 @@ export default function App({ mode, onToggleMode }: Props) {
                 player={p}
                 bossHp={calc.bossHp}
                 clearTime={calc.clearTime}
+                dpmUnit={dpmUnit}
                 onShareChange={(share) => calc.onShareChange(p.id, share)}
                 onToggleLock={() => calc.onToggleLock(p.id)}
                 onTimeOverride={(m) => calc.onTimeOverride(p.id, m)}
@@ -52,8 +66,12 @@ export default function App({ mode, onToggleMode }: Props) {
             ))}
           </Stack>
 
-          <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'center' }}>
-            v1.1.0 · party HP scale
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            sx={{ textAlign: 'center' }}
+          >
+            v1.2.0 · DPM unit {dpmUnit}
           </Typography>
         </Stack>
       </Container>
