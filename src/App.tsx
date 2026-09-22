@@ -21,7 +21,6 @@ export default function App({
 }: Props) {
   const { t } = useTranslation()
   const calc = useCalculator()
-  const n = calc.playerCount
 
   return (
     <>
@@ -31,14 +30,22 @@ export default function App({
         dpmUnit={dpmUnit}
         onDpmUnitChange={onDpmUnitChange}
       />
-      <Container maxWidth="xl" sx={{ py: { xs: 2, md: 3 }, px: { xs: 2, md: 3 } }}>
+      <Container
+        maxWidth={false}
+        sx={{
+          py: { xs: 2, md: 3 },
+          px: { xs: 2, sm: 3, md: 4 },
+          maxWidth: 1600,
+          mx: 'auto',
+        }}
+      >
         <Box
           sx={{
             display: 'grid',
             gap: { xs: 2, md: 3 },
             gridTemplateColumns: {
               xs: '1fr',
-              md: 'minmax(280px, 340px) minmax(0, 1fr)',
+              md: 'minmax(320px, 400px) minmax(0, 1fr)',
             },
             alignItems: 'start',
           }}
@@ -47,14 +54,14 @@ export default function App({
             elevation={0}
             variant="outlined"
             sx={{
-              p: { xs: 2, md: 2.5 },
+              p: { xs: 2.5, md: 3 },
               borderRadius: 3,
               position: { md: 'sticky' },
               top: { md: 80 },
               alignSelf: 'start',
             }}
           >
-            <Stack spacing={2}>
+            <Stack spacing={2.5}>
               <Typography variant="body2" color="text.secondary">
                 {t('app.subtitle')}
               </Typography>
@@ -79,22 +86,10 @@ export default function App({
             <Box
               sx={{
                 display: 'grid',
-                gap: 2,
+                gap: 2.5,
                 gridTemplateColumns: {
                   xs: '1fr',
-                  sm: n > 1 ? 'repeat(2, minmax(0, 1fr))' : '1fr',
-                  lg:
-                    n >= 5
-                      ? 'repeat(3, minmax(0, 1fr))'
-                      : n >= 3
-                        ? 'repeat(2, minmax(0, 1fr))'
-                        : '1fr',
-                  xl:
-                    n >= 4
-                      ? 'repeat(3, minmax(0, 1fr))'
-                      : n >= 2
-                        ? 'repeat(2, minmax(0, 1fr))'
-                        : '1fr',
+                  sm: 'repeat(auto-fit, minmax(min(100%, 380px), 1fr))',
                 },
               }}
             >
@@ -117,7 +112,7 @@ export default function App({
               color="text.secondary"
               sx={{ textAlign: 'center' }}
             >
-              v1.4.0 · DPM unit {dpmUnit}
+              v1.4.1 · DPM unit {dpmUnit}
             </Typography>
           </Stack>
         </Box>

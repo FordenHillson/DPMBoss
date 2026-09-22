@@ -46,7 +46,7 @@ function MaterialIcon({
     <span
       className="material-symbols-outlined"
       aria-hidden
-      style={{ color, fontSize: size, verticalAlign: 'middle' }}
+      style={{ color, fontSize: size, flexShrink: 0 }}
     >
       {name}
     </span>
@@ -75,6 +75,7 @@ export function PlayerRow({
         display: 'flex',
         flexDirection: 'column',
         borderRadius: 3,
+        minWidth: 0,
       }}
     >
       <CardContent
@@ -82,8 +83,9 @@ export function PlayerRow({
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
-          gap: 1.5,
-          '&:last-child': { pb: 2 },
+          gap: 2,
+          p: { xs: 2, sm: 2.5 },
+          '&:last-child': { pb: { xs: 2, sm: 2.5 } },
         }}
       >
         <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
@@ -104,7 +106,7 @@ export function PlayerRow({
           </Tooltip>
         </Stack>
 
-        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+        <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
           <Slider
             value={shareRounded}
             min={0}
@@ -112,7 +114,7 @@ export function PlayerRow({
             step={0.1}
             onChange={(_, v) => onShareChange(v as number)}
             disabled={player.locked}
-            sx={{ flexGrow: 1 }}
+            sx={{ flexGrow: 1, minWidth: 0 }}
             valueLabelDisplay="auto"
             valueLabelFormat={(v) => `${v}%`}
           />
@@ -125,7 +127,7 @@ export function PlayerRow({
               if (Number.isFinite(n)) onShareChange(n)
             }}
             disabled={player.locked}
-            sx={{ width: 96 }}
+            sx={{ width: 110, flexShrink: 0 }}
             slotProps={{ htmlInput: { min: 0, max: 100, step: 0.1 } }}
           />
         </Stack>
@@ -146,6 +148,7 @@ export function PlayerRow({
           }}
           slotProps={{ htmlInput: { min: 0.1, step: 0.5 } }}
           size="small"
+          fullWidth
         />
 
         <Box
@@ -153,8 +156,8 @@ export function PlayerRow({
             bgcolor: 'primary.main',
             color: 'primary.contrastText',
             borderRadius: 2,
-            px: 2,
-            py: 1.5,
+            px: { xs: 2, sm: 2.5 },
+            py: 2,
             mt: 'auto',
           }}
         >
@@ -162,51 +165,78 @@ export function PlayerRow({
             {t('player.requiredDpm')}
           </Typography>
 
-          <Stack
-            direction="row"
-            spacing={1}
-            sx={{ alignItems: 'center', mt: 0.5, flexWrap: 'wrap' }}
-          >
-            <MaterialIcon name="speed" color={ICON_AVG} size={26} />
-            <Typography variant="body2" sx={{ opacity: 0.9 }}>
-              {t('player.dpmAvgLabel')}
-            </Typography>
-            <Typography variant="h5" sx={{ fontWeight: 700 }}>
+          <Stack spacing={0.5} sx={{ mt: 1 }}>
+            <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+              <MaterialIcon name="speed" color={ICON_AVG} size={24} />
+              <Typography variant="body2" sx={{ opacity: 0.9 }}>
+                {t('player.dpmAvgLabel')}
+              </Typography>
+            </Stack>
+            <Typography
+              variant="h4"
+              sx={{ fontWeight: 700, lineHeight: 1.2, wordBreak: 'break-all' }}
+            >
               {formatDpm(estimate.avg, dpmUnit)}
             </Typography>
           </Stack>
 
-          <Stack
-            direction="row"
-            spacing={1.5}
-            sx={{ alignItems: 'center', flexWrap: 'wrap', mt: 0.75 }}
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: 1.5,
+              mt: 2,
+            }}
           >
-            <Stack direction="row" spacing={0.5} sx={{ alignItems: 'center' }}>
-              <MaterialIcon name="trending_down" color={ICON_MIN} />
-              <Typography variant="body2">
-                {t('player.dpmMinLabel')}{' '}
-                <Box component="span" sx={{ fontWeight: 600 }}>
-                  {formatDpm(estimate.min, dpmUnit)}
-                </Box>
+            <Box
+              sx={{
+                bgcolor: 'rgba(255,255,255,0.12)',
+                borderRadius: 1.5,
+                px: 1.5,
+                py: 1.25,
+                minWidth: 0,
+              }}
+            >
+              <Stack direction="row" spacing={0.75} sx={{ alignItems: 'center' }}>
+                <MaterialIcon name="trending_down" color={ICON_MIN} size={18} />
+                <Typography variant="caption" sx={{ opacity: 0.9 }}>
+                  {t('player.dpmMinLabel')}
+                </Typography>
+              </Stack>
+              <Typography
+                variant="subtitle1"
+                sx={{ fontWeight: 700, mt: 0.5, wordBreak: 'break-all' }}
+              >
+                {formatDpm(estimate.min, dpmUnit)}
               </Typography>
-            </Stack>
-            <Typography variant="body2" sx={{ opacity: 0.7 }}>
-              ·
-            </Typography>
-            <Stack direction="row" spacing={0.5} sx={{ alignItems: 'center' }}>
-              <MaterialIcon name="trending_up" color={ICON_MAX} />
-              <Typography variant="body2">
-                {t('player.dpmMaxLabel')}{' '}
-                <Box component="span" sx={{ fontWeight: 600 }}>
-                  {formatDpm(estimate.max, dpmUnit)}
-                </Box>
+            </Box>
+            <Box
+              sx={{
+                bgcolor: 'rgba(255,255,255,0.12)',
+                borderRadius: 1.5,
+                px: 1.5,
+                py: 1.25,
+                minWidth: 0,
+              }}
+            >
+              <Stack direction="row" spacing={0.75} sx={{ alignItems: 'center' }}>
+                <MaterialIcon name="trending_up" color={ICON_MAX} size={18} />
+                <Typography variant="caption" sx={{ opacity: 0.9 }}>
+                  {t('player.dpmMaxLabel')}
+                </Typography>
+              </Stack>
+              <Typography
+                variant="subtitle1"
+                sx={{ fontWeight: 700, mt: 0.5, wordBreak: 'break-all' }}
+              >
+                {formatDpm(estimate.max, dpmUnit)}
               </Typography>
-            </Stack>
-          </Stack>
+            </Box>
+          </Box>
 
           <Typography
             variant="caption"
-            sx={{ opacity: 0.75, display: 'block', mt: 0.75 }}
+            sx={{ opacity: 0.75, display: 'block', mt: 1.5, lineHeight: 1.4 }}
           >
             {t('player.dpmEstimateHint')}
           </Typography>

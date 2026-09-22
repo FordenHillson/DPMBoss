@@ -47,8 +47,8 @@ export function PartyControls({
   const lang = i18n.language.startsWith('th') ? 'th' : 'en'
 
   return (
-    <Stack spacing={2}>
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ alignItems: 'stretch' }}>
+    <Stack spacing={2.5}>
+      <Stack spacing={2}>
         <FormControl fullWidth>
           <InputLabel id="boss-label">{t('boss.label')}</InputLabel>
           <Select
@@ -93,24 +93,24 @@ export function PartyControls({
             fullWidth
           />
         )}
+
+        {isCustom && (
+          <TextField
+            label={t('boss.customHp')}
+            helperText={t('boss.customHpHint')}
+            value={customHpText}
+            onChange={(e) => {
+              const text = e.target.value
+              onCustomHpText(text)
+              const parsed = parseDamageInput(text)
+              if (parsed != null && parsed >= 0) onCustomHpParsed(parsed)
+            }}
+            fullWidth
+          />
+        )}
       </Stack>
 
-      {isCustom && (
-        <TextField
-          label={t('boss.customHp')}
-          helperText={t('boss.customHpHint')}
-          value={customHpText}
-          onChange={(e) => {
-            const text = e.target.value
-            onCustomHpText(text)
-            const parsed = parseDamageInput(text)
-            if (parsed != null && parsed >= 0) onCustomHpParsed(parsed)
-          }}
-          fullWidth
-        />
-      )}
-
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+      <Stack spacing={2}>
         <FormControl fullWidth>
           <InputLabel id="players-label">{t('party.players')}</InputLabel>
           <Select
