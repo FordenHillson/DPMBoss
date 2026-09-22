@@ -1,0 +1,32 @@
+{
+  "app": {
+    "title": "DPM Boss Calculator",
+    "subtitle": "คำนวณ DPM ตามสัดส่วนเค้ก"
+  },
+  "boss": {
+    "label": "บอส",
+    "hp": "เลือดบอส",
+    "customHp": "HP กำหนดเอง",
+    "customHpHint": "เช่น 16.32T หรือ 605.4B"
+  },
+  "party": {
+    "players": "จำนวนผู้เล่น",
+    "clearTime": "เวลาจบบอส (นาที)"
+  },
+  "player": {
+    "index": "ผู้เล่น {{n}}",
+    "share": "สัดส่วน",
+    "lock": "ล็อก %",
+    "unlock": "ปลดล็อก",
+    "timeOverride": "เวลาของคนนี้ (นาที)",
+    "timeOverrideHint": "ว่าง = ใช้เวลาปาร์ตี้",
+    "requiredDpm": "Required DPM"
+  },
+  "settings": {
+    "language": "ภาษา",
+    "theme": "ธีม",
+    "light": "สว่าง",
+    "dark": "มืด",
+    "system": "ตามระบบ"
+  }
+}

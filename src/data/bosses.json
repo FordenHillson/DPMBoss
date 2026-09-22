@@ -1,0 +1,128 @@
+[
+  {
+    "id": "arkarium",
+    "name": { "th": "Arkarium", "en": "Arkarium" },
+    "totalHp": 605400000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "lotus",
+    "name": { "th": "Lotus", "en": "Lotus" },
+    "totalHp": 1920000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "normal-damien",
+    "name": { "th": "Normal Damien", "en": "Normal Damien" },
+    "totalHp": 2920000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "hard-damien",
+    "name": { "th": "Hard Damien", "en": "Hard Damien" },
+    "totalHp": 2920000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "normal-archon",
+    "name": { "th": "Normal Archon", "en": "Normal Archon" },
+    "totalHp": 1680000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "hard-archon",
+    "name": { "th": "Hard Archon", "en": "Hard Archon" },
+    "totalHp": 12450000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "normal-azazel",
+    "name": { "th": "Normal Azazel", "en": "Normal Azazel" },
+    "totalHp": 27070000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "hard-azazel",
+    "name": { "th": "Hard Azazel", "en": "Hard Azazel" },
+    "totalHp": 90240000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "hard-lucid",
+    "name": { "th": "Hard Lucid", "en": "Hard Lucid" },
+    "totalHp": 3230000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "chaos-lucid",
+    "name": { "th": "Chaos Lucid", "en": "Chaos Lucid" },
+    "totalHp": 59200000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "normal-vhilla",
+    "name": { "th": "Normal VHilla", "en": "Normal VHilla" },
+    "totalHp": 33150000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "hard-vhilla",
+    "name": { "th": "Hard VHilla", "en": "Hard VHilla" },
+    "totalHp": 45150000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "hard-will",
+    "name": { "th": "Hard Will", "en": "Hard Will" },
+    "totalHp": 16320000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "chaos-will",
+    "name": { "th": "Chaos Will", "en": "Chaos Will" },
+    "totalHp": 135040000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "gloom",
+    "name": { "th": "Gloom", "en": "Gloom" },
+    "totalHp": 7040000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "darknell",
+    "name": { "th": "Darknell", "en": "Darknell" },
+    "totalHp": 183000000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "black-mage",
+    "name": { "th": "Black Mage", "en": "Black Mage" },
+    "totalHp": 503000000000000,
+    "iconUrl": null,
+    "phases": []
+  },
+  {
+    "id": "custom",
+    "name": { "th": "กำหนดเอง (Custom)", "en": "Custom" },
+    "totalHp": 0,
+    "iconUrl": null,
+    "phases": []
+  }
+]

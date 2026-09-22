@@ -1,0 +1,32 @@
+{
+  "app": {
+    "title": "DPM Boss Calculator",
+    "subtitle": "Required DPM from cake share"
+  },
+  "boss": {
+    "label": "Boss",
+    "hp": "Boss HP",
+    "customHp": "Custom HP",
+    "customHpHint": "e.g. 16.32T or 605.4B"
+  },
+  "party": {
+    "players": "Players",
+    "clearTime": "Clear time (min)"
+  },
+  "player": {
+    "index": "Player {{n}}",
+    "share": "Share",
+    "lock": "Lock %",
+    "unlock": "Unlock",
+    "timeOverride": "This player's time (min)",
+    "timeOverrideHint": "Empty = party clear time",
+    "requiredDpm": "Required DPM"
+  },
+  "settings": {
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  }
+}
