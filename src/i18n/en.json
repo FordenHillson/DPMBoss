@@ -21,8 +21,9 @@
     "timeOverride": "This player's time (min)",
     "timeOverrideHint": "Empty = party clear time",
     "requiredDpm": "Required DPM (estimate)",
-    "dpmAvg": "Avg {{value}}",
-    "dpmRange": "Min {{min}} · Max {{max}}",
+    "dpmAvgLabel": "Avg",
+    "dpmMinLabel": "Min",
+    "dpmMaxLabel": "Max",
     "dpmEstimateHint": "Estimated minute-to-minute band (~0.5×–1.75× of average)"
   },
   "settings": {

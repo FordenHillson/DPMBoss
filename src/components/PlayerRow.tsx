@@ -29,6 +29,30 @@ type Props = {
   onTimeOverride: (minutes: number | null) => void
 }
 
+const ICON_AVG = '#FFD54F'
+const ICON_MIN = '#81C784'
+const ICON_MAX = '#FF8A65'
+
+function MaterialIcon({
+  name,
+  color,
+  size = 20,
+}: {
+  name: string
+  color: string
+  size?: number
+}) {
+  return (
+    <span
+      className="material-symbols-outlined"
+      aria-hidden
+      style={{ color, fontSize: size, verticalAlign: 'middle' }}
+    >
+      {name}
+    </span>
+  )
+}
+
 export function PlayerRow({
   player,
   bossHp,
@@ -121,16 +145,53 @@ export function PlayerRow({
             <Typography variant="caption" sx={{ opacity: 0.9 }}>
               {t('player.requiredDpm')}
             </Typography>
-            <Typography variant="h5" sx={{ fontWeight: 700 }}>
-              {t('player.dpmAvg', { value: formatDpm(estimate.avg, dpmUnit) })}
-            </Typography>
-            <Typography variant="body2" sx={{ opacity: 0.95, mt: 0.5 }}>
-              {t('player.dpmRange', {
-                min: formatDpm(estimate.min, dpmUnit),
-                max: formatDpm(estimate.max, dpmUnit),
-              })}
-            </Typography>
-            <Typography variant="caption" sx={{ opacity: 0.75, display: 'block', mt: 0.5 }}>
+
+            <Stack
+              direction="row"
+              spacing={1}
+              sx={{ alignItems: 'center', mt: 0.5 }}
+            >
+              <MaterialIcon name="speed" color={ICON_AVG} size={26} />
+              <Typography variant="body2" sx={{ opacity: 0.9 }}>
+                {t('player.dpmAvgLabel')}
+              </Typography>
+              <Typography variant="h5" sx={{ fontWeight: 700 }}>
+                {formatDpm(estimate.avg, dpmUnit)}
+              </Typography>
+            </Stack>
+
+            <Stack
+              direction="row"
+              spacing={1.5}
+              sx={{ alignItems: 'center', flexWrap: 'wrap', mt: 0.75 }}
+            >
+              <Stack direction="row" spacing={0.5} sx={{ alignItems: 'center' }}>
+                <MaterialIcon name="trending_down" color={ICON_MIN} />
+                <Typography variant="body2">
+                  {t('player.dpmMinLabel')}{' '}
+                  <Box component="span" sx={{ fontWeight: 600 }}>
+                    {formatDpm(estimate.min, dpmUnit)}
+                  </Box>
+                </Typography>
+              </Stack>
+              <Typography variant="body2" sx={{ opacity: 0.7 }}>
+                ·
+              </Typography>
+              <Stack direction="row" spacing={0.5} sx={{ alignItems: 'center' }}>
+                <MaterialIcon name="trending_up" color={ICON_MAX} />
+                <Typography variant="body2">
+                  {t('player.dpmMaxLabel')}{' '}
+                  <Box component="span" sx={{ fontWeight: 600 }}>
+                    {formatDpm(estimate.max, dpmUnit)}
+                  </Box>
+                </Typography>
+              </Stack>
+            </Stack>
+
+            <Typography
+              variant="caption"
+              sx={{ opacity: 0.75, display: 'block', mt: 0.75 }}
+            >
               {t('player.dpmEstimateHint')}
             </Typography>
           </Box>
