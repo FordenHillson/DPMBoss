@@ -11,6 +11,7 @@ import {
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { formatDamage, parseDamageInput } from '../domain/formatHp'
+import { resolveBossHp } from '../domain/resolveBossHp'
 import type { Boss } from '../domain/types'
 
 type Props = {
@@ -74,7 +75,7 @@ export function PartyControls({
                     <Typography variant="body1">{b.name[lang]}</Typography>
                     {b.id !== 'custom' && (
                       <Typography variant="caption" color="text.secondary">
-                        {formatDamage(b.totalHp)}
+                        {formatDamage(resolveBossHp(b, playerCount))}
                       </Typography>
                     )}
                   </Box>

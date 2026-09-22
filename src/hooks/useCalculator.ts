@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 import bossesData from '../data/bosses.json'
+import { resolveBossHp } from '../domain/resolveBossHp'
 import type { Boss, Player } from '../domain/types'
 import {
   equalSharePlayers,
@@ -28,8 +29,11 @@ export function useCalculator() {
   )
 
   const isCustom = selectedBoss.id === 'custom'
+  const playerCount = players.length
 
-  const bossHp = isCustom ? customHp : selectedBoss.totalHp
+  const bossHp = isCustom
+    ? customHp
+    : resolveBossHp(selectedBoss, playerCount)
 
   const setPlayerCount = useCallback((count: number) => {
     setPlayers(equalSharePlayers(count))
@@ -68,7 +72,7 @@ export function useCalculator() {
     clearTime,
     setClearTime,
     players,
-    playerCount: players.length,
+    playerCount,
     setPlayerCount,
     onShareChange,
     onToggleLock,
