@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import bossesData from '../data/bosses.json'
 import { formatDamage, formatDpm, parseDamageInput } from './formatHp'
 import { resolveBossHp } from './resolveBossHp'
-import { effectiveMinutes, requiredDpm } from './requiredDpm'
+import { effectiveMinutes, requiredDpm, requiredDpmEstimate } from './requiredDpm'
 import {
   equalSharePlayers,
   redistributeShare,
@@ -24,6 +24,13 @@ describe('requiredDpm', () => {
   it('uses time override via effectiveMinutes', () => {
     expect(effectiveMinutes(15, 12)).toBe(12)
     expect(effectiveMinutes(15, null)).toBe(15)
+  })
+
+  it('estimate band is 0.5×–1.75× of average', () => {
+    const est = requiredDpmEstimate(6.85e12, 100, 12)
+    expect(est.avg).toBeCloseTo(6.85e12 / 12)
+    expect(est.min).toBeCloseTo(est.avg * 0.5)
+    expect(est.max).toBeCloseTo(est.avg * 1.75)
   })
 })
 

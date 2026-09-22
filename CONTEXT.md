@@ -7,5 +7,5 @@
 - **Share Lock** — When locked, a player's Share is not changed by redistribute when another player moves their slider.
 - **Clear Time** — Party-wide target clear duration in minutes.
 - **Time Override** — Optional per-player minutes used instead of Clear Time when computing that player's Required DPM.
-- **Required DPM** — `(effectiveBossHp × Share / 100) ÷ effectiveMinutes`, where `effectiveMinutes = Time Override ?? Clear Time`.
+- **Required DPM** — `(effectiveBossHp × Share / 100) ÷ effectiveMinutes`, where `effectiveMinutes = Time Override ?? Clear Time`. Shown as an estimate band: **Avg** = exact required, **Min/Max** ≈ 0.5× / 1.75× of Avg for minute-to-minute variance.
 - **Custom Boss** — A Boss entry whose HP is entered by the user rather than taken from the catalog.

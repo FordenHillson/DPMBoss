@@ -71,7 +71,7 @@ export default function App({
             color="text.secondary"
             sx={{ textAlign: 'center' }}
           >
-            v1.2.0 · DPM unit {dpmUnit}
+            v1.3.0 · DPM unit {dpmUnit}
           </Typography>
         </Stack>
       </Container>

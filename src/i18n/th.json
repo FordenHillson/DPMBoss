@@ -20,7 +20,10 @@
     "unlock": "ปลดล็อก",
     "timeOverride": "เวลาของคนนี้ (นาที)",
     "timeOverrideHint": "ว่าง = ใช้เวลาปาร์ตี้",
-    "requiredDpm": "Required DPM"
+    "requiredDpm": "Required DPM (ประมาณการณ์)",
+    "dpmAvg": "เฉลี่ย {{value}}",
+    "dpmRange": "ต่ำสุด {{min}} · สูงสุด {{max}}",
+    "dpmEstimateHint": "ช่วงประมาณจากความผันผวนรายนาทีในไฟต์ (~0.5×–1.75× ของค่าเฉลี่ย)"
   },
   "settings": {
     "language": "ภาษา",

@@ -13,7 +13,10 @@ import {
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { formatDpm, type DamageUnit } from '../domain/formatHp'
-import { effectiveMinutes, requiredDpm } from '../domain/requiredDpm'
+import {
+  effectiveMinutes,
+  requiredDpmEstimate,
+} from '../domain/requiredDpm'
 import type { Player } from '../domain/types'
 
 type Props = {
@@ -37,7 +40,7 @@ export function PlayerRow({
 }: Props) {
   const { t } = useTranslation()
   const minutes = effectiveMinutes(clearTime, player.timeOverride)
-  const dpm = requiredDpm(bossHp, player.share, minutes)
+  const estimate = requiredDpmEstimate(bossHp, player.share, minutes)
   const shareRounded = Math.round(player.share * 10) / 10
 
   return (
@@ -119,7 +122,16 @@ export function PlayerRow({
               {t('player.requiredDpm')}
             </Typography>
             <Typography variant="h5" sx={{ fontWeight: 700 }}>
-              {formatDpm(dpm, dpmUnit)}
+              {t('player.dpmAvg', { value: formatDpm(estimate.avg, dpmUnit) })}
+            </Typography>
+            <Typography variant="body2" sx={{ opacity: 0.95, mt: 0.5 }}>
+              {t('player.dpmRange', {
+                min: formatDpm(estimate.min, dpmUnit),
+                max: formatDpm(estimate.max, dpmUnit),
+              })}
+            </Typography>
+            <Typography variant="caption" sx={{ opacity: 0.75, display: 'block', mt: 0.5 }}>
+              {t('player.dpmEstimateHint')}
             </Typography>
           </Box>
         </Stack>

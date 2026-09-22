@@ -20,7 +20,10 @@
     "unlock": "Unlock",
     "timeOverride": "This player's time (min)",
     "timeOverrideHint": "Empty = party clear time",
-    "requiredDpm": "Required DPM"
+    "requiredDpm": "Required DPM (estimate)",
+    "dpmAvg": "Avg {{value}}",
+    "dpmRange": "Min {{min}} · Max {{max}}",
+    "dpmEstimateHint": "Estimated minute-to-minute band (~0.5×–1.75× of average)"
   },
   "settings": {
     "language": "Language",
