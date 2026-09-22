@@ -34,6 +34,8 @@
     "system": "System",
     "dpmUnit": "DPM unit",
     "dpmUnitB": "Show as B",
-    "dpmUnitT": "Show as T"
+    "dpmUnitT": "Show as T",
+    "cardScale": "Card size",
+    "cardScaleHint": "Far left = fit all cards on screen · Far right = larger cards"
   }
 }
