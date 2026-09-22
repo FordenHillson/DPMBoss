@@ -1,4 +1,4 @@
-import { Container, Stack, Typography } from '@mui/material'
+import { Box, Container, Paper, Stack, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { PartyControls } from './components/PartyControls'
 import { PlayerRow } from './components/PlayerRow'
@@ -21,6 +21,7 @@ export default function App({
 }: Props) {
   const { t } = useTranslation()
   const calc = useCalculator()
+  const n = calc.playerCount
 
   return (
     <>
@@ -30,50 +31,96 @@ export default function App({
         dpmUnit={dpmUnit}
         onDpmUnitChange={onDpmUnitChange}
       />
-      <Container maxWidth="sm" sx={{ py: 3 }}>
-        <Stack spacing={3}>
-          <Typography variant="body2" color="text.secondary">
-            {t('app.subtitle')}
-          </Typography>
-
-          <PartyControls
-            bosses={calc.bosses}
-            bossId={calc.bossId}
-            onBossChange={calc.setBossId}
-            bossHp={calc.bossHp}
-            isCustom={calc.isCustom}
-            customHpText={calc.customHpText}
-            onCustomHpText={calc.setCustomHpText}
-            onCustomHpParsed={calc.setCustomHp}
-            playerCount={calc.playerCount}
-            onPlayerCount={calc.setPlayerCount}
-            clearTime={calc.clearTime}
-            onClearTime={calc.setClearTime}
-          />
+      <Container maxWidth="xl" sx={{ py: { xs: 2, md: 3 }, px: { xs: 2, md: 3 } }}>
+        <Box
+          sx={{
+            display: 'grid',
+            gap: { xs: 2, md: 3 },
+            gridTemplateColumns: {
+              xs: '1fr',
+              md: 'minmax(280px, 340px) minmax(0, 1fr)',
+            },
+            alignItems: 'start',
+          }}
+        >
+          <Paper
+            elevation={0}
+            variant="outlined"
+            sx={{
+              p: { xs: 2, md: 2.5 },
+              borderRadius: 3,
+              position: { md: 'sticky' },
+              top: { md: 80 },
+              alignSelf: 'start',
+            }}
+          >
+            <Stack spacing={2}>
+              <Typography variant="body2" color="text.secondary">
+                {t('app.subtitle')}
+              </Typography>
+              <PartyControls
+                bosses={calc.bosses}
+                bossId={calc.bossId}
+                onBossChange={calc.setBossId}
+                bossHp={calc.bossHp}
+                isCustom={calc.isCustom}
+                customHpText={calc.customHpText}
+                onCustomHpText={calc.setCustomHpText}
+                onCustomHpParsed={calc.setCustomHp}
+                playerCount={calc.playerCount}
+                onPlayerCount={calc.setPlayerCount}
+                clearTime={calc.clearTime}
+                onClearTime={calc.setClearTime}
+              />
+            </Stack>
+          </Paper>
 
           <Stack spacing={2}>
-            {calc.players.map((p) => (
-              <PlayerRow
-                key={p.id}
-                player={p}
-                bossHp={calc.bossHp}
-                clearTime={calc.clearTime}
-                dpmUnit={dpmUnit}
-                onShareChange={(share) => calc.onShareChange(p.id, share)}
-                onToggleLock={() => calc.onToggleLock(p.id)}
-                onTimeOverride={(m) => calc.onTimeOverride(p.id, m)}
-              />
-            ))}
-          </Stack>
+            <Box
+              sx={{
+                display: 'grid',
+                gap: 2,
+                gridTemplateColumns: {
+                  xs: '1fr',
+                  sm: n > 1 ? 'repeat(2, minmax(0, 1fr))' : '1fr',
+                  lg:
+                    n >= 5
+                      ? 'repeat(3, minmax(0, 1fr))'
+                      : n >= 3
+                        ? 'repeat(2, minmax(0, 1fr))'
+                        : '1fr',
+                  xl:
+                    n >= 4
+                      ? 'repeat(3, minmax(0, 1fr))'
+                      : n >= 2
+                        ? 'repeat(2, minmax(0, 1fr))'
+                        : '1fr',
+                },
+              }}
+            >
+              {calc.players.map((p) => (
+                <PlayerRow
+                  key={p.id}
+                  player={p}
+                  bossHp={calc.bossHp}
+                  clearTime={calc.clearTime}
+                  dpmUnit={dpmUnit}
+                  onShareChange={(share) => calc.onShareChange(p.id, share)}
+                  onToggleLock={() => calc.onToggleLock(p.id)}
+                  onTimeOverride={(m) => calc.onTimeOverride(p.id, m)}
+                />
+              ))}
+            </Box>
 
-          <Typography
-            variant="caption"
-            color="text.secondary"
-            sx={{ textAlign: 'center' }}
-          >
-            v1.3.1 · DPM unit {dpmUnit}
-          </Typography>
-        </Stack>
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{ textAlign: 'center' }}
+            >
+              v1.4.0 · DPM unit {dpmUnit}
+            </Typography>
+          </Stack>
+        </Box>
       </Container>
     </>
   )

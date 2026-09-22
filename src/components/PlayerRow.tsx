@@ -68,134 +68,149 @@ export function PlayerRow({
   const shareRounded = Math.round(player.share * 10) / 10
 
   return (
-    <Card variant="outlined">
-      <CardContent>
-        <Stack spacing={1.5}>
-          <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-            <Typography variant="h6" sx={{ minWidth: 28 }}>
-              {player.id}
-            </Typography>
-            <Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
-              {t('player.index', { n: player.id })}
-            </Typography>
-            <Tooltip title={player.locked ? t('player.unlock') : t('player.lock')}>
-              <IconButton
-                onClick={onToggleLock}
-                color={player.locked ? 'primary' : 'default'}
-                aria-label="lock"
-              >
-                {player.locked ? <LockIcon /> : <LockOpenIcon />}
-              </IconButton>
-            </Tooltip>
-          </Stack>
-
-          <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
-            <Slider
-              value={shareRounded}
-              min={0}
-              max={100}
-              step={0.1}
-              onChange={(_, v) => onShareChange(v as number)}
-              disabled={player.locked}
-              sx={{ flexGrow: 1 }}
-              valueLabelDisplay="auto"
-              valueLabelFormat={(v) => `${v}%`}
-            />
-            <TextField
-              label="%"
-              type="number"
-              value={shareRounded}
-              onChange={(e) => {
-                const n = Number(e.target.value)
-                if (Number.isFinite(n)) onShareChange(n)
-              }}
-              disabled={player.locked}
-              sx={{ width: 96 }}
-              slotProps={{ htmlInput: { min: 0, max: 100, step: 0.1 } }}
-            />
-          </Stack>
-
-          <TextField
-            label={t('player.timeOverride')}
-            helperText={t('player.timeOverrideHint')}
-            type="number"
-            value={player.timeOverride ?? ''}
-            onChange={(e) => {
-              const raw = e.target.value
-              if (raw === '') {
-                onTimeOverride(null)
-                return
-              }
-              const n = Number(raw)
-              if (Number.isFinite(n) && n > 0) onTimeOverride(n)
-            }}
-            slotProps={{ htmlInput: { min: 0.1, step: 0.5 } }}
-            size="small"
-          />
-
-          <Box
-            sx={{
-              bgcolor: 'primary.main',
-              color: 'primary.contrastText',
-              borderRadius: 2,
-              px: 2,
-              py: 1.5,
-            }}
-          >
-            <Typography variant="caption" sx={{ opacity: 0.9 }}>
-              {t('player.requiredDpm')}
-            </Typography>
-
-            <Stack
-              direction="row"
-              spacing={1}
-              sx={{ alignItems: 'center', mt: 0.5 }}
+    <Card
+      variant="outlined"
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        borderRadius: 3,
+      }}
+    >
+      <CardContent
+        sx={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 1.5,
+          '&:last-child': { pb: 2 },
+        }}
+      >
+        <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+          <Typography variant="h6" sx={{ minWidth: 28 }}>
+            {player.id}
+          </Typography>
+          <Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
+            {t('player.index', { n: player.id })}
+          </Typography>
+          <Tooltip title={player.locked ? t('player.unlock') : t('player.lock')}>
+            <IconButton
+              onClick={onToggleLock}
+              color={player.locked ? 'primary' : 'default'}
+              aria-label="lock"
             >
-              <MaterialIcon name="speed" color={ICON_AVG} size={26} />
-              <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                {t('player.dpmAvgLabel')}
-              </Typography>
-              <Typography variant="h5" sx={{ fontWeight: 700 }}>
-                {formatDpm(estimate.avg, dpmUnit)}
-              </Typography>
-            </Stack>
-
-            <Stack
-              direction="row"
-              spacing={1.5}
-              sx={{ alignItems: 'center', flexWrap: 'wrap', mt: 0.75 }}
-            >
-              <Stack direction="row" spacing={0.5} sx={{ alignItems: 'center' }}>
-                <MaterialIcon name="trending_down" color={ICON_MIN} />
-                <Typography variant="body2">
-                  {t('player.dpmMinLabel')}{' '}
-                  <Box component="span" sx={{ fontWeight: 600 }}>
-                    {formatDpm(estimate.min, dpmUnit)}
-                  </Box>
-                </Typography>
-              </Stack>
-              <Typography variant="body2" sx={{ opacity: 0.7 }}>
-                ·
-              </Typography>
-              <Stack direction="row" spacing={0.5} sx={{ alignItems: 'center' }}>
-                <MaterialIcon name="trending_up" color={ICON_MAX} />
-                <Typography variant="body2">
-                  {t('player.dpmMaxLabel')}{' '}
-                  <Box component="span" sx={{ fontWeight: 600 }}>
-                    {formatDpm(estimate.max, dpmUnit)}
-                  </Box>
-                </Typography>
-              </Stack>
-            </Stack>
-
-            <Typography
-              variant="caption"
-              sx={{ opacity: 0.75, display: 'block', mt: 0.75 }}
-            >
-              {t('player.dpmEstimateHint')}
-            </Typography>
-          </Box>
+              {player.locked ? <LockIcon /> : <LockOpenIcon />}
+            </IconButton>
+          </Tooltip>
         </Stack>
+
+        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
+          <Slider
+            value={shareRounded}
+            min={0}
+            max={100}
+            step={0.1}
+            onChange={(_, v) => onShareChange(v as number)}
+            disabled={player.locked}
+            sx={{ flexGrow: 1 }}
+            valueLabelDisplay="auto"
+            valueLabelFormat={(v) => `${v}%`}
+          />
+          <TextField
+            label="%"
+            type="number"
+            value={shareRounded}
+            onChange={(e) => {
+              const n = Number(e.target.value)
+              if (Number.isFinite(n)) onShareChange(n)
+            }}
+            disabled={player.locked}
+            sx={{ width: 96 }}
+            slotProps={{ htmlInput: { min: 0, max: 100, step: 0.1 } }}
+          />
+        </Stack>
+
+        <TextField
+          label={t('player.timeOverride')}
+          helperText={t('player.timeOverrideHint')}
+          type="number"
+          value={player.timeOverride ?? ''}
+          onChange={(e) => {
+            const raw = e.target.value
+            if (raw === '') {
+              onTimeOverride(null)
+              return
+            }
+            const n = Number(raw)
+            if (Number.isFinite(n) && n > 0) onTimeOverride(n)
+          }}
+          slotProps={{ htmlInput: { min: 0.1, step: 0.5 } }}
+          size="small"
+        />
+
+        <Box
+          sx={{
+            bgcolor: 'primary.main',
+            color: 'primary.contrastText',
+            borderRadius: 2,
+            px: 2,
+            py: 1.5,
+            mt: 'auto',
+          }}
+        >
+          <Typography variant="caption" sx={{ opacity: 0.9 }}>
+            {t('player.requiredDpm')}
+          </Typography>
+
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{ alignItems: 'center', mt: 0.5, flexWrap: 'wrap' }}
+          >
+            <MaterialIcon name="speed" color={ICON_AVG} size={26} />
+            <Typography variant="body2" sx={{ opacity: 0.9 }}>
+              {t('player.dpmAvgLabel')}
+            </Typography>
+            <Typography variant="h5" sx={{ fontWeight: 700 }}>
+              {formatDpm(estimate.avg, dpmUnit)}
+            </Typography>
+          </Stack>
+
+          <Stack
+            direction="row"
+            spacing={1.5}
+            sx={{ alignItems: 'center', flexWrap: 'wrap', mt: 0.75 }}
+          >
+            <Stack direction="row" spacing={0.5} sx={{ alignItems: 'center' }}>
+              <MaterialIcon name="trending_down" color={ICON_MIN} />
+              <Typography variant="body2">
+                {t('player.dpmMinLabel')}{' '}
+                <Box component="span" sx={{ fontWeight: 600 }}>
+                  {formatDpm(estimate.min, dpmUnit)}
+                </Box>
+              </Typography>
+            </Stack>
+            <Typography variant="body2" sx={{ opacity: 0.7 }}>
+              ·
+            </Typography>
+            <Stack direction="row" spacing={0.5} sx={{ alignItems: 'center' }}>
+              <MaterialIcon name="trending_up" color={ICON_MAX} />
+              <Typography variant="body2">
+                {t('player.dpmMaxLabel')}{' '}
+                <Box component="span" sx={{ fontWeight: 600 }}>
+                  {formatDpm(estimate.max, dpmUnit)}
+                </Box>
+              </Typography>
+            </Stack>
+          </Stack>
+
+          <Typography
+            variant="caption"
+            sx={{ opacity: 0.75, display: 'block', mt: 0.75 }}
+          >
+            {t('player.dpmEstimateHint')}
+          </Typography>
+        </Box>
       </CardContent>
     </Card>
   )
