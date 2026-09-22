@@ -20,6 +20,12 @@ type Props = {
   onDpmUnitChange: (unit: DamageUnit) => void
 }
 
+/** Visible height budget under sticky app bar for the card viewport. */
+const VIEWPORT_HEIGHT = {
+  xs: 'calc(100dvh - 220px)',
+  md: 'calc(100dvh - 180px)',
+} as const
+
 export default function App({
   mode,
   onToggleMode,
@@ -60,7 +66,6 @@ export default function App({
           px: { xs: 2, sm: 3, md: 4 },
           maxWidth: 1600,
           mx: 'auto',
-          minHeight: { md: 'calc(100dvh - 64px)' },
           boxSizing: 'border-box',
         }}
       >
@@ -72,8 +77,7 @@ export default function App({
               xs: '1fr',
               md: 'minmax(320px, 400px) minmax(0, 1fr)',
             },
-            alignItems: 'stretch',
-            minHeight: { md: 'calc(100dvh - 64px - 48px)' },
+            alignItems: 'start',
           }}
         >
           <Paper
@@ -108,7 +112,7 @@ export default function App({
             </Stack>
           </Paper>
 
-          <Stack spacing={1.5} sx={{ minWidth: 0, minHeight: 0, height: '100%' }}>
+          <Stack spacing={1.5} sx={{ minWidth: 0, minHeight: 0 }}>
             <Paper
               elevation={0}
               variant="outlined"
@@ -131,16 +135,26 @@ export default function App({
             <Box
               ref={viewportRef}
               sx={{
-                flex: 1,
-                minHeight: { xs: 420, md: 0 },
+                height: VIEWPORT_HEIGHT,
+                maxHeight: VIEWPORT_HEIGHT,
+                minHeight: 280,
                 overflow: 'auto',
                 borderRadius: 2,
+                border: '1px solid',
+                borderColor: 'divider',
+                bgcolor: 'action.hover',
+                p: 1,
               }}
             >
-              {/* zoom scales cards + text and shrinks layout box (Chromium/Safari/Firefox) */}
               <Box
                 sx={{
+                  // Prefer zoom so text+layout shrink together; fall back via transform in CSS if needed
                   zoom: scale,
+                  '@supports not (zoom: 1)': {
+                    transform: `scale(${scale})`,
+                    transformOrigin: 'top left',
+                    width: `${100 / scale}%`,
+                  },
                   display: 'grid',
                   gap: 2.5,
                   gridTemplateColumns: {
@@ -170,7 +184,7 @@ export default function App({
               color="text.secondary"
               sx={{ textAlign: 'center', flexShrink: 0 }}
             >
-              v1.5.0 · DPM unit {dpmUnit}
+              v1.5.1 · DPM unit {dpmUnit}
             </Typography>
           </Stack>
         </Box>

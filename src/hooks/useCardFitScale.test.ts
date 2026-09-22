@@ -24,4 +24,9 @@ describe('scaleFromSlider', () => {
     expect(scaleFromSlider(100, 0.4, 1.35)).toBeCloseTo(1.35)
     expect(scaleFromSlider(50, 0.4, 1.35)).toBeCloseTo(0.875)
   })
+
+  it('still shrinks when fitScale is wrongly large', () => {
+    expect(scaleFromSlider(0, 1.2, 1.35)).toBeLessThanOrEqual(1)
+    expect(scaleFromSlider(100, 1.2, 1.35)).toBeCloseTo(1.35)
+  })
 })

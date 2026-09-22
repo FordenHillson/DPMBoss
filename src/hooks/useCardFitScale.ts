@@ -3,8 +3,10 @@ import { useCallback, useLayoutEffect, useState } from 'react'
 const GAP = 20
 /** Approximate unscaled PlayerRow card size (px). */
 const BASE_CARD_W = 400
-const BASE_CARD_H = 460
+const BASE_CARD_H = 480
 export const CARD_SCALE_MAX = 1.35
+/** Never treat "fit" as larger than this so the slider always has shrink room for multi-card. */
+export const CARD_SCALE_FIT_CAP = 1
 
 export function computeFitScale(
   count: number,
@@ -14,7 +16,7 @@ export function computeFitScale(
   cardH = BASE_CARD_H,
   gap = GAP,
 ): number {
-  if (count < 1 || containerW <= 0 || containerH <= 0) return 1
+  if (count < 1 || containerW <= 40 || containerH <= 40) return 0.5
 
   let best = 0.12
   for (let cols = 1; cols <= count; cols++) {
@@ -35,14 +37,15 @@ export function scaleFromSlider(
   maxScale = CARD_SCALE_MAX,
 ): number {
   const t = Math.min(100, Math.max(0, slider)) / 100
-  const lo = Math.min(fitScale, maxScale)
-  const hi = Math.max(fitScale, maxScale)
+  // Fit end should shrink to fit; never let lo rise above max with no range.
+  const lo = Math.min(fitScale, CARD_SCALE_FIT_CAP, maxScale)
+  const hi = Math.max(lo + 0.05, maxScale)
   return lo + (hi - lo) * t
 }
 
 export function useCardFitScale(playerCount: number) {
   const [viewportEl, setViewportEl] = useState<HTMLElement | null>(null)
-  const [fitScale, setFitScale] = useState(0.55)
+  const [fitScale, setFitScale] = useState(0.45)
 
   const viewportRef = useCallback((node: HTMLElement | null) => {
     setViewportEl(node)
@@ -52,10 +55,9 @@ export function useCardFitScale(playerCount: number) {
     if (!viewportEl) return
 
     const measure = () => {
-      const rect = viewportEl.getBoundingClientRect()
-      // Leave a little breathing room for scrollbar / padding
-      const w = Math.max(0, rect.width - 8)
-      const h = Math.max(0, rect.height - 8)
+      // client* = visible box (ignores overflowing children) once height is constrained
+      const w = Math.max(0, viewportEl.clientWidth - 8)
+      const h = Math.max(0, viewportEl.clientHeight - 8)
       setFitScale(computeFitScale(playerCount, w, h))
     }
 
