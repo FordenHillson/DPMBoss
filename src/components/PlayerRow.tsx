@@ -8,16 +8,22 @@ import {
   Slider,
   Stack,
   TextField,
+  ToggleButton,
+  ToggleButtonGroup,
   Tooltip,
   Typography,
 } from '@mui/material'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { formatDpm, type DamageUnit } from '../domain/formatHp'
 import {
   effectiveMinutes,
+  requiredDamageEstimate,
   requiredDpmEstimate,
 } from '../domain/requiredDpm'
 import type { Player } from '../domain/types'
+
+type DisplayMode = 'dpm' | 'dmg'
 
 type Props = {
   player: Player
@@ -63,8 +69,12 @@ export function PlayerRow({
   onTimeOverride,
 }: Props) {
   const { t } = useTranslation()
+  const [displayMode, setDisplayMode] = useState<DisplayMode>('dpm')
   const minutes = effectiveMinutes(clearTime, player.timeOverride)
-  const estimate = requiredDpmEstimate(bossHp, player.share, minutes)
+  const estimate =
+    displayMode === 'dmg'
+      ? requiredDamageEstimate(bossHp, player.share)
+      : requiredDpmEstimate(bossHp, player.share, minutes)
   const shareRounded = Math.round(player.share * 10) / 10
 
   return (
@@ -161,9 +171,47 @@ export function PlayerRow({
             mt: 'auto',
           }}
         >
-          <Typography variant="caption" sx={{ opacity: 0.9 }}>
-            {t('player.requiredDpm')}
-          </Typography>
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{ alignItems: 'center', justifyContent: 'space-between' }}
+          >
+            <Typography variant="caption" sx={{ opacity: 0.9 }}>
+              {t('player.requiredDpm')}
+            </Typography>
+            <ToggleButtonGroup
+              exclusive
+              size="small"
+              value={displayMode}
+              onChange={(_, v: DisplayMode | null) => {
+                if (v != null) setDisplayMode(v)
+              }}
+              aria-label="display mode"
+              sx={{
+                bgcolor: 'rgba(255,255,255,0.12)',
+                '& .MuiToggleButton-root': {
+                  color: 'inherit',
+                  px: 1,
+                  py: 0.25,
+                  fontSize: '0.7rem',
+                  lineHeight: 1.4,
+                  borderColor: 'rgba(255,255,255,0.28)',
+                  '&.Mui-selected': {
+                    bgcolor: 'rgba(255,255,255,0.28)',
+                    color: 'inherit',
+                    '&:hover': { bgcolor: 'rgba(255,255,255,0.36)' },
+                  },
+                },
+              }}
+            >
+              <ToggleButton value="dpm" aria-label={t('player.displayModeDpm')}>
+                {t('player.displayModeDpm')}
+              </ToggleButton>
+              <ToggleButton value="dmg" aria-label={t('player.displayModeDmg')}>
+                {t('player.displayModeDmg')}
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Stack>
 
           <Stack spacing={0.5} sx={{ mt: 1 }}>
             <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>

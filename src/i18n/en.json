@@ -21,6 +21,8 @@
     "timeOverride": "This player's time (min)",
     "timeOverrideHint": "Empty = party clear time",
     "requiredDpm": "Required DPM (estimate)",
+    "displayModeDpm": "DPM",
+    "displayModeDmg": "DMG",
     "dpmAvgLabel": "Avg",
     "dpmMinLabel": "Min",
     "dpmMaxLabel": "Max",

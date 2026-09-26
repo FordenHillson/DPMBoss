@@ -35,6 +35,28 @@ export function requiredDpmEstimate(
   }
 }
 
+/** Required damage (cake share) = bossHp × share% — no time. */
+export function requiredDamage(
+  bossHp: number,
+  sharePercent: number,
+): number {
+  if (bossHp < 0 || sharePercent < 0) return 0
+  return bossHp * (sharePercent / 100)
+}
+
+/** Average required damage plus the same 0.5×–1.75× estimate band. */
+export function requiredDamageEstimate(
+  bossHp: number,
+  sharePercent: number,
+): RequiredDpmEstimate {
+  const avg = requiredDamage(bossHp, sharePercent)
+  return {
+    min: avg * DPM_ESTIMATE_MIN_FACTOR,
+    avg,
+    max: avg * DPM_ESTIMATE_MAX_FACTOR,
+  }
+}
+
 export function effectiveMinutes(
   clearTime: number,
   timeOverride: number | null | undefined,

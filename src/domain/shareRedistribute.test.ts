@@ -2,7 +2,13 @@ import { describe, expect, it } from 'vitest'
 import bossesData from '../data/bosses.json'
 import { formatDamage, formatDpm, parseDamageInput } from './formatHp'
 import { resolveBossHp } from './resolveBossHp'
-import { effectiveMinutes, requiredDpm, requiredDpmEstimate } from './requiredDpm'
+import {
+  effectiveMinutes,
+  requiredDamage,
+  requiredDamageEstimate,
+  requiredDpm,
+  requiredDpmEstimate,
+} from './requiredDpm'
 import {
   equalSharePlayers,
   redistributeShare,
@@ -31,6 +37,22 @@ describe('requiredDpm', () => {
     expect(est.avg).toBeCloseTo(6.85e12 / 12)
     expect(est.min).toBeCloseTo(est.avg * 0.5)
     expect(est.max).toBeCloseTo(est.avg * 1.75)
+  })
+})
+
+describe('requiredDamage', () => {
+  it('HP 1000 at 10% => 100 avg, band 50–175', () => {
+    expect(requiredDamage(1000, 10)).toBe(100)
+    const est = requiredDamageEstimate(1000, 10)
+    expect(est.avg).toBe(100)
+    expect(est.min).toBe(50)
+    expect(est.max).toBe(175)
+  })
+
+  it('does not depend on time (unlike requiredDpm)', () => {
+    const dmg = requiredDamage(15.3e12, 4)
+    const dpm12 = requiredDpm(15.3e12, 4, 12)
+    expect(dmg).toBeCloseTo(dpm12 * 12)
   })
 })
 

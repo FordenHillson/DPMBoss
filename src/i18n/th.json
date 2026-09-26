@@ -21,6 +21,8 @@
     "timeOverride": "เวลาของคนนี้ (นาที)",
     "timeOverrideHint": "ว่าง = ใช้เวลาปาร์ตี้",
     "requiredDpm": "Required DPM (ประมาณการณ์)",
+    "displayModeDpm": "DPM",
+    "displayModeDmg": "DMG",
     "dpmAvgLabel": "เฉลี่ย",
     "dpmMinLabel": "ต่ำสุด",
     "dpmMaxLabel": "สูงสุด",
